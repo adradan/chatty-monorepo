@@ -14,4 +14,4 @@ jobs:
           echo "${{ secrets.SSH_HOST }}" > ~/.ssh/known_hosts
       - name: Deploy
         run: |
-          ssh "${{ secrets.SSH_USER_HOST }}" "cd ~/chatty-monorepo; git pull; docker compose build frontend; docker compose build backend; docker compose up -d frontend"
+          ssh "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOSTNAME }}" "cd ~/chatty-monorepo; git pull; docker compose build frontend; docker compose build backend; docker compose up -d frontend"
