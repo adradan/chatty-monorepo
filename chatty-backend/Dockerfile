@@ -4,14 +4,15 @@ LABEL authors="ericvsolcruz"
 
 RUN cargo new --bin chatty-backend
 WORKDIR ./chatty-backend
+
+# Cache the dependencies since Rust famously takes forever to compile
 COPY ./Cargo.toml ./Cargo.toml
 RUN cargo build --release
 
 RUN rm src/*.rs
-
 ADD . ./
 
-RUN rm -rf ./target
+RUN rm -rf ./target/release/deps/chatty_backend*
 RUN cargo build --release
 
 FROM debian:buster-slim

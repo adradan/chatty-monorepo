@@ -24,20 +24,20 @@ Please refer to the READMEs in each of the folders for individual setup instruct
 * The given nginx config files assume that the two containers will be placed into the same VM.
 
 ### Steps
-1. Clone the repo and edit the nginx config files.
+1. Clone the repo and edit the nginx config files as well as the ENV variable in chatty-frontend/Dockerfile.
 2. Create the nginx folder for the frontend to link to.
 ```bash
 mkdir nginx nginx/conf
 cp nginx.frontend.conf nginx/conf/nginx.conf
 ```
-3. Overwrite your system config (or add on to it).
+3. Create a certificate to use with https
+```bash
+sudo certbot certonly --nginx
+```
+4. Overwrite your system config (or add on to it).
 ```bash
 cp nginx.conf ~/nginx/conf/nginx.conf 
 sudo systemctl restart nginx
-```
-4. Create a certificate to use with https
-```bash
-sudo certbot certonly --nginx
 ```
 5. Build and run the Docker containers.
 ```bash
