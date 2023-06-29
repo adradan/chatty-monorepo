@@ -1,0 +1,26 @@
+version: '3'
+# Thanks to https://mindsers.blog/post/https-using-nginx-certbot-docker/
+services:
+  frontend:
+    build: chatty-frontend
+    container_name: chatty-frontend
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+    restart: always
+    volumes:
+      - ./nginx/conf/:/etc/nginx/conf.d/:ro
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
+  backend:
+    build: chatty
+    container_name: chatty-backend
+    ports:
+      - 8000:8000
+
