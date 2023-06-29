@@ -1,6 +1,6 @@
-# Chatty Frontend
+# Chatty Backend
 
-Frontend built with Vite and React
+Backend built with Rust and Actix Web Actors
 
 ## Getting Started
 

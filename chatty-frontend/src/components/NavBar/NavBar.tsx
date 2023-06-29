@@ -4,6 +4,7 @@ import BurgerMenu from '@/heroicons/BurgerMenu.tsx';
 import { Menu, Transition } from '@headlessui/react';
 import { useContext, useEffect } from 'react';
 import { KeyPairContext } from '@/context/keyPair.ts';
+import Github from '@/heroicons/Github.tsx';
 
 export default function NavBar() {
     const navigate = useNavigate();
@@ -77,7 +78,14 @@ export default function NavBar() {
             <div className="cursor-pointer text-2xl font-bold" onClick={goHome}>
                 chatty
             </div>
-            <div className="hidden md:flex">Notifications</div>
+            <div className="hidden md:flex">
+                <a
+                    href="https://github.com/adradan/chatty-monorepo"
+                    target="_blank"
+                >
+                    <Github height="30" width="30" />
+                </a>
+            </div>
         </div>
     );
 }
