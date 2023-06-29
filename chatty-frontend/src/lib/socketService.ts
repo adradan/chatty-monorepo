@@ -33,6 +33,8 @@ const selectState: selectFn<ChatStates> = (state: RootState) => {
 
 const THIRTY_SEC = 30000;
 
+const RANDOM_VAL = 'Github Actions Test';
+
 class SocketService {
     private _socket?: WebSocket;
     private _userId = '';
