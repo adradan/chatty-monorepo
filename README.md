@@ -2,7 +2,7 @@
 
 An End-to-End encrypted chat messenger.
 
-Currently deployed at http://chatty.macksproductions.com/.
+Currently deployed at https://chatty.macksproductions.com/.
 
 ## Getting Started
 
