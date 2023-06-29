@@ -1,6 +1,8 @@
 # Chatty
 
-An End-to-End encrypted chat messenger
+An End-to-End encrypted chat messenger.
+
+Currently deployed at http://chatty.macksproductions.com/.
 
 ## Getting Started
 
