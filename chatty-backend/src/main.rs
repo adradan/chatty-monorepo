@@ -48,8 +48,14 @@ async fn main() -> io::Result<()> {
     let url = format!("0.0.0.0:{}", port);
 
     HttpServer::new(move || {
+        let domain = option_env!("DOMAIN").unwrap_or("0.0.0.0:3000");
+        let cors = Cors::default()
+            .allowed_origin(domain)
+            .allow_any_method()
+            .allow_any_header();
+
         App::new()
-            .wrap(Cors::permissive())
+            .wrap(cors)
             .app_data(web::Data::new(server.clone()))
             .route("/ws/", web::get().to(get_chat))
             .route("/", web::get().to(test))

@@ -5,6 +5,8 @@ LABEL authors="ericvsolcruz"
 RUN cargo new --bin chatty-backend
 WORKDIR ./chatty-backend
 
+ENV DOMAIN=www.example.org
+
 # Cache the dependencies since Rust famously takes forever to compile
 COPY ./Cargo.toml ./Cargo.toml
 RUN cargo build --release
