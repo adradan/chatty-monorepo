@@ -1,7 +1,6 @@
 import { createContext, useContext } from 'react';
 import {
     AckCommand,
-    AckMessage,
     ChatMessage,
     MessageCommand,
     ResetIDCommand,
@@ -32,9 +31,6 @@ const selectState: selectFn<ChatStates> = (state: RootState) => {
 };
 
 const THIRTY_SEC = 30000;
-
-const RANDOM_VAL = 'Github Actions Test';
-
 class SocketService {
     private _socket?: WebSocket;
     private _userId = '';
@@ -58,7 +54,6 @@ class SocketService {
         importKey(publicKey).then((k) => {
             this._recipientKey = k;
         });
-        console.log(publicKey);
 
         this._recipientWebKey = publicKey;
         this._chatBuddy = serverMessage.sender;
@@ -75,7 +70,6 @@ class SocketService {
 
     handleSynAck = (serverMessage: ServerMessage) => {
         const message = serverMessage.message as SynAckMessage;
-        console.log(serverMessage);
         if (message.inviterKey !== JSON.stringify(this._exportedPublic)) {
             this.handleError(
                 'Recipient sent a bad response. Aborting...',
@@ -94,14 +88,7 @@ class SocketService {
         this.sendAck(serverMessage);
     };
 
-    handleAck = (serverMessage: ServerMessage) => {
-        console.log('ack');
-        const message = serverMessage.message as AckMessage;
-        console.log(
-            message.recipientKey === JSON.stringify(this._exportedPublic),
-            message.recipientKey,
-            JSON.stringify(this._exportedPublic)
-        );
+    handleAck = () => {
         store.dispatch(chatStateActions.receivingAck());
     };
 
@@ -134,7 +121,6 @@ class SocketService {
             this._socket.onmessage = (event: MessageEvent) => {
                 const { data } = event;
                 const serverMessage = JSON.parse(data) as ServerMessage;
-                console.log(serverMessage);
                 switch (serverMessage.command) {
                     case ServerMessageCommands.MessageSent:
                         break;
@@ -154,7 +140,7 @@ class SocketService {
                         this.handleResetID(serverMessage);
                         break;
                     case ServerMessageCommands.Ack:
-                        this.handleAck(serverMessage);
+                        this.handleAck();
                         break;
                     case ServerMessageCommands.Syn:
                         this.handleSyn(serverMessage);
@@ -172,7 +158,6 @@ class SocketService {
                 resolve(false);
             };
             this._socket.onopen = () => {
-                console.log('open', 'mykey: ', exportedPublic);
                 this._publicKey = publicKey;
                 this._privateKey = privateKey;
                 this._exportedPublic = exportedPublic;
@@ -222,7 +207,6 @@ class SocketService {
     };
 
     acceptInvite = () => {
-        console.log('accepting.');
         store.dispatch(chatStateActions.sendingSynAck());
         this.sendSynAck();
         setTimeout(() => {
@@ -318,9 +302,7 @@ class SocketService {
                 inviterKey: JSON.stringify(this._recipientWebKey),
             },
         };
-        console.log(body);
         this._socket?.send(JSON.stringify(body));
-        console.log('todo!');
     };
 
     get socket(): WebSocket | undefined {

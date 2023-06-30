@@ -11,10 +11,7 @@ export const AppRoutes = () => {
     if (keyPair) {
         routes.push(...privateRoutes);
     }
-    // const addProtectedRoutes = keyPair ? privateRoutes : publicRoutes;
-    console.log(keyPair, routes);
 
-    // console.log(routes);
     const element = useRoutes([
         ...routes,
         {

@@ -9,9 +9,6 @@ import Github from '@/heroicons/Github.tsx';
 export default function NavBar() {
     const navigate = useNavigate();
     const { keyPair } = useContext(KeyPairContext);
-    useEffect(() => {
-        console.log(keyPair);
-    }, [keyPair]);
     const goHome = () => {
         navigate('/');
     };
