@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Button from '@/components/Elements/Button';
 import BurgerMenu from '@/heroicons/BurgerMenu.tsx';
 import { Menu, Transition } from '@headlessui/react';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { KeyPairContext } from '@/context/keyPair.ts';
 import Github from '@/heroicons/Github.tsx';
 
